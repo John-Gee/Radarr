@@ -58,7 +58,7 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
                .SetSegment("route", "movie")
                .SetSegment("id", TmdbId.ToString())
                .SetSegment("secondaryRoute", "")
-               .AddQueryParam("append_to_response", "alternative_titles,release_dates,videos")
+               .AddQueryParam("append_to_response", "alternative_titles,credits,release_dates,videos")
                .AddQueryParam("language", langCode.ToUpper())
                // .AddQueryParam("country", "US")
                .Build();
@@ -131,6 +131,28 @@ namespace NzbDrone.Core.MetadataSource.SkyHook
                     altTitles.Add(new AlternativeTitle(alternativeTitle.title, SourceType.TMDB, TmdbId, Language.English));
                 }
             }
+            
+            foreach (var c in resource.credits.cast)
+            {
+                var actor = new Actor
+                {
+                    Name = c.name,
+                    Character = c.character
+                };
+                actor.Images.Add(_configService.GetCoverForURL(c.profile_path, MediaCoverTypes.Headshot));
+                movie.Actors.Add(actor);
+            }
+
+            /*foreach (var c in resource.credits.crew)
+            {
+                var member = new Member
+                {
+                    Name = c.name,
+                    Job = c.job
+                };
+                member.Images.Add(_configService.GetCoverForURL(c.profile_path, MediaCoverTypes.Headshot));
+                movie.Crew.Add(member);
+            }*/
 
             movie.TmdbId = TmdbId;
             movie.ImdbId = resource.imdb_id;
