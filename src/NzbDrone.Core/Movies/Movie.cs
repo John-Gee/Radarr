@@ -18,6 +18,7 @@ namespace NzbDrone.Core.Movies
             Images = new List<MediaCover.MediaCover>();
             Genres = new List<string>();
             Actors = new List<Actor>();
+            //Crew = new List<Member>();
             Tags = new HashSet<int>();
             AlternativeTitles = new List<AlternativeTitle>();
         }
@@ -60,6 +61,7 @@ namespace NzbDrone.Core.Movies
         public int SecondaryYearSourceId { get; set; }
         public string YouTubeTrailerId{ get; set; }
         public string Studio { get; set; }
+        //public List<Member> Crew { get; set; }
 
         public bool IsRecentMovie
         {
