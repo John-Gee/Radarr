@@ -195,6 +195,24 @@ namespace NzbDrone.Core.Extras.Metadata.Consumers.Xbmc
                 }
 
                 details.Add(new XElement("watched", watched));
+                
+                foreach (var actor in movie.Actors)
+                {
+                    var actorInfo = new XElement("actor");
+                    actorInfo.Add(new XElement("name", actor.Name));
+                    actorInfo.Add(new XElement("role", actor.Character));
+                    if (actor.Images.Count > 0)
+                            actorInfo.Add(new XElement("thumb", actor.Images[0]));
+                    details.Add(actorInfo);
+                }
+                
+                /*foreach (var member in movie.Crew)
+                {
+                    if (String.Equals(member.Job, "Director", StringComparison.OrdinalIgnoreCase))
+                        details.Add(new XElement("director", member.Name));
+                    // more crew member?
+                }*/
+
 
                 if (movieFile.MediaInfo != null)
                 {
