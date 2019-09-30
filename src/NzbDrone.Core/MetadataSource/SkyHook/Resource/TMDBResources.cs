@@ -49,6 +49,7 @@ namespace NzbDrone.Core.MetadataSource.SkyHook.Resource
         public int? status_code { get; set; }
         public string status_message { get; set; }
         public int budget { get; set; }
+        public Credits credits { get; set; }
         public Genre[] genres { get; set; }
         public string homepage { get; set; }
         public int id { get; set; }
@@ -102,6 +103,32 @@ namespace NzbDrone.Core.MetadataSource.SkyHook.Resource
         public string poster_path { get; set; }
         public string backdrop_path { get; set; }
     }
+    
+    public class Acto
+    {
+        public int cast_id { get; set; }
+        public string character { get; set; }
+        public int order { get; set; }
+        public string name { get; set; }
+        public string profile_path { get; set; }
+    }
+
+    public class Credits
+    {
+        public Acto[] cast { get; set; }
+        public Membe[] crew { get; set; }
+    }
+
+    public class Membe
+    {
+        public string credit_id { get; set; }
+        public int id { get; set; }
+        public string job { get; set; }
+        public string name { get; set; }
+        public string profile_path { get; set; }
+    }
+
+
 
     public class Genre
     {
